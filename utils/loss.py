@@ -7,31 +7,31 @@ import numpy as np
 
 class LargeMarginSoftmax(nn.CrossEntropyLoss):
     """
-    This combines the Softmax Cross-Entropy Loss (nn.CrossEntropyLoss) and the large-margin inducing
-    regularization proposed in
-       T. Kobayashi, "Large-Margin In Softmax Cross-Entropy Loss." In BMVC2019.
+        This combines the Softmax Cross-Entropy Loss (nn.CrossEntropyLoss) and the large-margin inducing
+        regularization proposed in
+            T. Kobayashi, "Large-Margin In Softmax Cross-Entropy Loss." In BMVC2019.
     """
 
-    def __init__(self, reg_lambda=0.3, deg_logit=None,
-                 weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean'):
+    def __init__(self, reg_lambda=0.3, deg_logit=None, weight=None, size_average=None, ignore_index=-100,
+                 reduce=None, reduction='mean'):
         super(LargeMarginSoftmax, self).__init__(weight=weight, size_average=size_average,
                                                  ignore_index=ignore_index, reduce=reduce, reduction=reduction)
         self.reg_lambda = reg_lambda
         self.deg_logit = deg_logit
 
-    def forward(self, input, target):
-        N = input.size(0)  # number of samples
-        C = input.size(1)  # number of classes
-        Mask = torch.zeros_like(input, requires_grad=False)
+    def forward(self, inputs, target):
+        N = inputs.size(0)  # number of samples
+        C = inputs.size(1)  # number of classes
+        Mask = torch.zeros_like(inputs, requires_grad=False)
         Mask[range(N), target] = 1
 
         if self.deg_logit is not None:
-            input = input - self.deg_logit * Mask
+            inputs = inputs - self.deg_logit * Mask
 
-        loss = F.cross_entropy(input, target, weight=self.weight,
+        loss = F.cross_entropy(inputs, target, weight=self.weight,
                                ignore_index=self.ignore_index, reduction=self.reduction)
 
-        X = input - 1.e6 * Mask  # [N x C], excluding the target class
+        X = inputs - 1.e6 * Mask  # [N x C], excluding the target class
         reg = 0.5 * ((F.softmax(X, dim=1) - 1.0 / (C - 1)) * F.log_softmax(X, dim=1) * (1.0 - Mask)).sum(dim=1)
         if self.reduction == 'sum':
             reg = reg.sum()
@@ -60,9 +60,10 @@ class total_LargeMargin_CrossEntropy(nn.Module):
 
 class CFPC_loss(nn.Module):
     """
-    This combines the CrossCLR Loss proposed in
-       M. Zolfaghari et al., "CrossCLR: Cross-modal Contrastive Learning For Multi-modal Video Representations,"
-       In ICCV2021.
+        We borrow the code from the link. Not all technical details are given in this documentation.
+
+            Paper: https://doi.org/10.1109/LSP.2023.3256320
+            Code: https://github.com/tiongleslie/HA-ViT
     """
 
     def __init__(self, temperature=0.02, negative_weight=0.8, config=None):
@@ -83,13 +84,6 @@ class CFPC_loss(nn.Module):
         return mask.to(self.config.device)
 
     def forward(self, face_features, ocular_features):
-        """
-        Inputs shape (batch, embed_dim)
-        Args:
-            face_features: face embeddings (batch, embed_dim)
-            ocular_features: ocular embeddings (batch, embed_dim)
-        Returns:
-        """
         batch_size = face_features.shape[0]
 
         # Normalize features

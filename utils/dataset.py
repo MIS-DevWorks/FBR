@@ -11,7 +11,19 @@ import natsort
 
 
 class VGGFace2_dataset(Dataset):
+    """
+        VGGFace2 Dataset Loader
+    """
     def __init__(self, csv_path, img_path, train_augmentation=False, image_size=112, biometric_mode=None):
+        """
+            Configurations of VGGFace2 Dataset.
+
+            :param csv_path: Path of csv file for soft-biometric attributes
+            :param img_path: Path of face and periocular images
+            :param train_augmentation: Usage of data augmentation approach, where default value is False
+            :param image_size: Size of image, where default value is 112
+            :param biometric_mode: Type of biometrics, where default value is None (options: multi, face, ocular/ocu)
+        """
         self.image_size = image_size
         self.train_augmentation = train_augmentation
         self.biometric_mode = biometric_mode
@@ -97,7 +109,7 @@ class VGGFace2_dataset(Dataset):
 
                 return face_stacked_imgs, self.data_dict[idx]['gt']
 
-            elif self.biometric_mode == "ocular":
+            elif self.biometric_mode == "ocular" or self.biometric_mode == "ocu":
                 # Ocular images
                 ocular_l_img = Image.open(self.data_dict[idx]['ocular_left_path']).convert('RGB')
                 ocular_r_img = Image.open(self.data_dict[idx]['ocular_right_path']).convert('RGB')
@@ -113,8 +125,19 @@ class VGGFace2_dataset(Dataset):
         return len(self.data_dict)
 
 
-class multimodal_dataset(torch.utils.data.Dataset):
-    def __init__(self, config, subdir="recog_base/rgb/", train_augmentation=False, imagesize=112):
+class custom_multimodal_dataset(torch.utils.data.Dataset):
+    """
+        Custom Multimodal Dataset
+    """
+    def __init__(self, config, subdir="gallery/", train_augmentation=False, imagesize=112):
+        """
+            Configurations of Custom Multimodal Dataset.
+
+            :param config: Configuration file
+            :param subdir: Path directories for gallery or probe set, where default value is gallery/
+            :param train_augmentation: Usage of data augmentation approach, where default value is False
+            :param imagesize: Size of input image, where default value is 112
+        """
         self.image_size = imagesize
         self.train_augmentation = train_augmentation
 
@@ -155,28 +178,3 @@ class multimodal_dataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return self.num_samples
-
-
-if __name__ == '__main__':
-    import config as config
-
-    # dataset = multimodal_dataset(config, subdir="", train_augmentation=False, imagesize=112)
-    # data_loader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=4)
-    # data_iter = iter(data_loader)
-    # for i in range(len(data_iter)):
-    #     face_img, ocular_img, subject = next(data_iter)
-    #     print(face_img.shape)
-    #     print(ocular_img.shape)
-
-    dataset = VGGFace2_dataset(csv_path="../data/MAAD_Face_filtered_train.csv",
-                               img_path='/media/leslie/samsung/Biometrics/VGGFace2/crop/train/',
-                               train_augmentation=True, image_size=112)
-    data_loader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=4)
-
-    # data_iter = iter(data_loader)
-    # for i in range(len(data_iter)):
-    #     face_img, ocular, attribute, subject = next(data_iter)
-    #     print(face_img.shape)
-    #     print(ocular.shape)
-    #     print(attribute.shape)
-    #     print(subject)
