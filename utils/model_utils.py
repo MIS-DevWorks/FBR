@@ -3,6 +3,18 @@ import torch
 
 
 def train(data_loader, model, lm_loss_fn, cm_loss_fn_list, optimizer, epoch, writer, config):
+    """
+
+        :param data_loader:
+        :param model:
+        :param lm_loss_fn:
+        :param cm_loss_fn_list:
+        :param optimizer:
+        :param epoch:
+        :param writer:
+        :param config:
+        :return:
+    """
     model.train()
     total_loss_list, total_cm_loss1_list, total_cm_loss2_list, total_cm_loss3_list, total_lm_loss_list = [], [], [], [], []
     total = 0
@@ -61,6 +73,17 @@ def train(data_loader, model, lm_loss_fn, cm_loss_fn_list, optimizer, epoch, wri
 
 
 def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
+    """
+
+        :param data_loader:
+        :param model:
+        :param lm_loss_fn:
+        :param cm_loss_fn:
+        :param epoch:
+        :param writer:
+        :param config:
+        :return:
+    """
     model.eval()
     total_loss_list, total_cm_loss_list, total_lm_loss_list = [], [], []
     total = 0
@@ -109,6 +132,14 @@ def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
 
 
 def get_features(model, data_loader, config, prompt=True):
+    """
+
+        :param model:
+        :param data_loader:
+        :param config:
+        :param prompt:
+        :return:
+    """
     model.eval()
     subject_ids = []
 
@@ -157,18 +188,27 @@ def get_features(model, data_loader, config, prompt=True):
     return subject_face_features_tensor, subject_ocular_features_tensor, torch.tensor(subject_ids)
 
 
-def evaluate_crossmodal_data_features_dict(base_data, test_data, base_gt, test_gt, method="max"):
+def evaluate_crossmodal_data_features_dict(gallery_data, probe_data, gallery_gt, probe_gt, method="max"):
+    """
+
+        :param gallery_data:
+        :param probe_data:
+        :param gallery_gt:
+        :param probe_gt:
+        :param method:
+        :return:
+    """
     total_true_preds = 0
     cos_sim_score_list = []
-    for i, test_data_feature in enumerate(test_data):
+    for i, test_data_feature in enumerate(probe_data):
         cos_sim_score_list.append(torch.nn.functional.cosine_similarity(
-            test_data_feature.repeat(len(base_data), 1), base_data))
+            test_data_feature.repeat(len(gallery_data), 1), gallery_data))
 
     for i, cos_sim_score in enumerate(tqdm(cos_sim_score_list)):
         if method == "max":
-            if base_gt[torch.argmax(cos_sim_score).item()] == test_gt[i]:
+            if gallery_gt[torch.argmax(cos_sim_score).item()] == probe_gt[i]:
                 total_true_preds += 1
         else:
             raise "{} is not implemented yet".format(method)
 
-    return (total_true_preds / len(test_data)) * 100.
+    return (total_true_preds / len(probe_data)) * 100.
