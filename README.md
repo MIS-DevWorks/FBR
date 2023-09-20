@@ -23,8 +23,8 @@ $ python main.py --training_mode --dataset_name "VGGFace2"
 ```shell
 $ python main.py --dataset_name "other"
 ```
-**_P/S_**<br>
-For better understanding, please refer to this [code usage](code%20usage) directory for further details. In this directory, we provide two examples: `code usage(Dataset).py` and `code usage(MFA-ViT).py` 
+
+_For better understanding, please refer to this_ [code usage](code%20usage) _directory for further details. In this directory, we provide two examples:_ `code usage(Dataset).py` _and_ `code usage(MFA-ViT).py` 
 <br> <br>
 
 ## Compatibility
@@ -32,8 +32,9 @@ We tested the codes with:
   1) PyTorch &ge; 1.13.1 with and without GPU, under Ubuntu 18.04/20.04 and Anaconda3 (Python 3.8 and above)
   2) PyTorch &ge; 1.12.0 with and without GPU, under Windows 10 and Anaconda3 (Python 3.8 and above)
 
-**_P/S_**<br>
-Please ensure that the PyTorch version used is up to 1.13.1, as this is required by the Python Library Package [rtdl](https://github.com/Yura52/rtdl). 
+<br>
+
+_Please ensure that the PyTorch version used is up to 1.13.1, as this is required by the Python Library Package_ [rtdl](https://github.com/Yura52/rtdl). 
 <br> <br>
 
 ## Pretrained Download
