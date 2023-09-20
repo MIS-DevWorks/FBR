@@ -5,13 +5,18 @@ import argparse
 import sys
 
 from models.MFA_ViT import MFA_ViT
-from utils.dataset import VGGFace2_dataset, multimodal_dataset
+from utils.dataset import VGGFace2_dataset, custom_multimodal_dataset
 from utils.loss import total_LargeMargin_CrossEntropy, CFPC_loss
 from utils.model_utils import *
 import config
 
 
 def training(args):
+    """
+        Training function for MFA-ViT.
+
+        :param args: Hyperparameter configurations
+    """
     cur_acc_dict = {
         "face": 0.,
         "ocu": 0.,
@@ -21,7 +26,7 @@ def training(args):
 
     # Dataset
     print("-----------------------------------------------------------------------------")
-    if args.dataset_name == "VGGFace2":
+    if args.dataset_name == "VGGFace2" or args.dataset_name is None:
         print("\tDataset Loading: " + str(args.training_dataset))
         train_dataset = VGGFace2_dataset(csv_path=config.dataset_path_csv_train_path,
                                          img_path=config.dataset_path_img_path, train_augmentation=True,
@@ -36,7 +41,15 @@ def training(args):
     print("-----------------------------------------------------------------------------\n\n")
 
     print("-----------------------------------------------------------------------------")
-    print("\tMFA-ViT Model")
+    print("\tMFA-ViT Model\n")
+    print("\tCofiguration Settings")
+    print("\t\tInput Size (face and periocular): %d" % config.image_size)
+    print("\t\tPatch Embedding Size: %d" % config.patch_size)
+    print("\t\tLayer Depth: %d" % config.layer_depth)
+    print("\t\tNumber of Head: %d" % config.num_heads)
+    print("\t\tPrompt Strategy: %s" % config.prompt_mode)
+    print("\t\tSize of Prompt Embeddings: %d" % config.prompt_tokens)
+    print("\t\tClassitiona Head Input: %s" % config.head_strategy)
     # Model
     model = MFA_ViT(img_size=config.image_size, patch_size=config.patch_size, in_chans=config.in_chans,
                     embed_dim=config.embed_dim, num_classes=config.num_sub_classes, layer_depth=config.layer_depth,
@@ -44,23 +57,30 @@ def training(args):
                     drop_rate=config.drop_rate, attn_drop_rate=config.attn_drop_rate,
                     drop_path_rate=config.drop_path_rate, prompt_mode=config.prompt_mode,
                     prompt_tokens=config.prompt_tokens, head_strategy=config.head_strategy)
-    if config.pretrained_weights is not None:
-        print("\t\tLoading pre-trained weights")
-        model.load_state_dict(torch.load(config.pretrained_weights, map_location=config.device), strict=True)
 
     if config.multigpu:
         print("\t\tUsing Multi-gpu")
         model = torch.nn.DataParallel(model, device_ids=config.device_ids)
+
+    if config.pretrained_weights is not None:
+        print("\t\tLoading pre-trained weights")
+        model.load_state_dict(torch.load(config.pretrained_weights, map_location=config.device), strict=True)
+
     model = model.to(config.device)
 
+    # Optimizer
     if config.optimizer == "SGD":
         print("\t\tOptimizer: SGD")
         optimizer = torch.optim.SGD(model.parameters(), lr=config.init_lr, momentum=config.momentum,
                                     weight_decay=config.weight_decay)
+    elif config.optimizer == "Adam":
+        print("\t\tOptimizer: Adam")
+        optimizer = torch.optim.Adam(model.parameters(), lr=config.init_lr, weight_decay=config.weight_decay)
     elif config.optimizer == "AdamW":
         print("\t\tOptimizer: AdamW")
         optimizer = torch.optim.AdamW(model.parameters(), lr=config.init_lr, weight_decay=config.weight_decay)
 
+    # Loss functions
     loss_subj = total_LargeMargin_CrossEntropy().to(config.device)
     loss_cm1 = CFPC_loss(temperature=config.temperature, negative_weight=config.negative_weight,
                          config=config).to(config.device)
@@ -96,20 +116,35 @@ def training(args):
     print("-----------------------------------------------------------------------------\n")
         
 
-def crossmodal_evaluation(args):
+def evaluation(args):
+    """
+        Evaluation function for MFA-ViT.
+
+        :param args: Hyperparameter configurations
+    """
     print("-----------------------------------------------------------------------------")
     print("\tLoading evaluation dataset")
-    if args.dataset_name is None:
-        base_dataset = multimodal_dataset(config, subdir="/", train_augmentation=False, imagesize=config.image_size)
-        base_data_loader = DataLoader(base_dataset, batch_size=config.batch_size, shuffle=False,
-                                      num_workers=config.num_workers)
-        test_dataset = multimodal_dataset(config, subdir="/", train_augmentation=False, imagesize=config.image_size)
-        test_data_loader = DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False,
-                                      num_workers=config.num_workers)
+    if args.dataset_name == "custom" or args.dataset_name == "other":
+        gallery_dataset = custom_multimodal_dataset(config, subdir="identification_base/rgb/", train_augmentation=False,
+                                                    imagesize=config.image_size)
+        gallery_data_loader = DataLoader(gallery_dataset, batch_size=config.batch_size, shuffle=False,
+                                         num_workers=config.num_workers)
+        probe_dataset = custom_multimodal_dataset(config, subdir="identification_test/rgb/", train_augmentation=False,
+                                                  imagesize=config.image_size)
+        probe_data_loader = DataLoader(probe_dataset, batch_size=config.batch_size, shuffle=False,
+                                       num_workers=config.num_workers)
     print("-----------------------------------------------------------------------------\n\n")
 
     print("-----------------------------------------------------------------------------")
-    print("\tMFA-ViT Model")
+    print("\tMFA-ViT Model\n")
+    print("\tCofiguration Settings")
+    print("\t\tInput Size (face and periocular): %d" % config.image_size)
+    print("\t\tPatch Embedding Size: %d" % config.patch_size)
+    print("\t\tLayer Depth: %d" % config.layer_depth)
+    print("\t\tNumber of Head: %d" % config.num_heads)
+    print("\t\tPrompt Strategy: %s" % config.prompt_mode)
+    print("\t\tSize of Prompt Embeddings: %d" % config.prompt_tokens)
+    print("\t\tClassitiona Head Input: %s" % config.head_strategy)
 
     # Model
     model = MFA_ViT(img_size=config.image_size, patch_size=config.patch_size, in_chans=config.in_chans,
@@ -124,46 +159,46 @@ def crossmodal_evaluation(args):
     model = model.to(config.device)
 
     if config.pretrained_weights is not None:
-        print("\t\tLoading pre-trained weights")
+        print("\t\tUsing pre-trained weights")
         model.load_state_dict(torch.load(config.pretrained_weights, map_location=config.device), strict=True)
     print("-----------------------------------------------------------------------------\n\n")
 
     print("-----------------------------------------------------------------------------")
     print("\tEvaluation on progress...")
-    base_data_features_dict = get_features(model, base_data_loader, config)
-    test_data_features_dict = get_features(model, test_data_loader, config)
+    gallery_data_features_dict = get_features(model, gallery_data_loader, config)
+    probe_data_features_dict = get_features(model, probe_data_loader, config)
 
-    ''' base face vs test face '''
-    face_face_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=base_data_features_dict[0],
-                                                                  test_data=test_data_features_dict[0],
-                                                                  base_gt=base_data_features_dict[2],
-                                                                  test_gt=test_data_features_dict[2],
+    ''' gallery face vs probe face '''
+    face_face_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=gallery_data_features_dict[0],
+                                                                  test_data=probe_data_features_dict[0],
+                                                                  base_gt=gallery_data_features_dict[2],
+                                                                  test_gt=probe_data_features_dict[2],
                                                                   method='max')
-    print("\t\t[TEST] face_face acc by cos_sim - max    : {}".format(face_face_acc_by_max))
+    print("\t\t[TEST] face2face acc by cos_sim - max    : {}".format(face_face_acc_by_max))
 
-    ''' base ocu vs test ocu '''
-    ocu_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=base_data_features_dict[1],
-                                                                test_data=test_data_features_dict[1],
-                                                                base_gt=base_data_features_dict[2],
-                                                                test_gt=test_data_features_dict[2],
+    ''' gallery ocu vs probe ocu '''
+    ocu_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=gallery_data_features_dict[1],
+                                                                test_data=probe_data_features_dict[1],
+                                                                base_gt=gallery_data_features_dict[2],
+                                                                test_gt=probe_data_features_dict[2],
                                                                 method='max')
-    print("\t\t[TEST] ocu_ocu acc by cos_sim - max    : {}".format(ocu_ocu_acc_by_max))
+    print("\t\t[TEST] ocu2ocu acc by cos_sim - max    : {}".format(ocu_ocu_acc_by_max))
 
-    ''' base face vs test ocu '''
-    face_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=base_data_features_dict[0],
-                                                                 test_data=test_data_features_dict[1],
-                                                                 base_gt=base_data_features_dict[2],
-                                                                 test_gt=test_data_features_dict[2],
+    ''' gallery face vs probe ocu '''
+    face_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=gallery_data_features_dict[0],
+                                                                 test_data=probe_data_features_dict[1],
+                                                                 base_gt=gallery_data_features_dict[2],
+                                                                 test_gt=probe_data_features_dict[2],
                                                                  method='max')
-    print("\t\t[TEST] face_ocu acc by cos_sim - max    : {}".format(face_ocu_acc_by_max))
+    print("\t\t[TEST] face2ocu acc by cos_sim - max    : {}".format(face_ocu_acc_by_max))
 
-    ''' base ocu vs test face '''
-    ocu_face_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=base_data_features_dict[1],
-                                                                 test_data=test_data_features_dict[0],
-                                                                 base_gt=base_data_features_dict[2],
-                                                                 test_gt=test_data_features_dict[2],
+    ''' gallery ocu vs probe face '''
+    ocu_face_acc_by_max = evaluate_crossmodal_data_features_dict(base_data=gallery_data_features_dict[1],
+                                                                 test_data=probe_data_features_dict[0],
+                                                                 base_gt=gallery_data_features_dict[2],
+                                                                 test_gt=probe_data_features_dict[2],
                                                                  method='max')
-    print("\t\t[TEST] ocu_face acc by cos_sim - max    : {}".format(ocu_face_acc_by_max))
+    print("\t\t[TEST] ocu2face acc by cos_sim - max    : {}".format(ocu_face_acc_by_max))
     print("-----------------------------------------------------------------------------")
 
 
@@ -179,8 +214,9 @@ def main(args):
     if args.training_mode is True:
         training(args)
     elif args.training_mode is False:
-        crossmodal_evaluation(args)
+        evaluation(args)
 
 
 if __name__ == "__main__":
     main(parse_arguments(sys.argv[1:]))
+    sys.exit(0)
