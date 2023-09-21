@@ -29,10 +29,8 @@ _For better understanding, please refer to this_ [code usage](code%20usage) _dir
 
 ## Compatibility
 We tested the codes with:
-  1) PyTorch &ge; 1.13.1 with and without GPU, under Ubuntu 18.04/20.04 and Anaconda3 (Python 3.8 and above)
-  2) PyTorch &ge; 1.12.0 with and without GPU, under Windows 10 and Anaconda3 (Python 3.8 and above)
-
-<br>
+  1) PyTorch 1.13.1 with and without GPU, under Ubuntu 18.04/20.04 and Anaconda3 (Python 3.8 and above)
+  2) PyTorch 1.12.0 with and without GPU, under Windows 10 and Anaconda3 (Python 3.8 and above)
 
 _Please ensure that the PyTorch version used is up to 1.13.1, as this is required by the Python Library Package_ [rtdl](https://github.com/Yura52/rtdl). 
 <br> <br>
