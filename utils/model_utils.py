@@ -4,16 +4,17 @@ import torch
 
 def train(data_loader, model, lm_loss_fn, cm_loss_fn_list, optimizer, epoch, writer, config):
     """
+        Training function.
 
-        :param data_loader:
-        :param model:
-        :param lm_loss_fn:
-        :param cm_loss_fn_list:
-        :param optimizer:
-        :param epoch:
-        :param writer:
-        :param config:
-        :return:
+        :param data_loader: PyTorch's data loader format
+        :param model: PyTorch's model structure
+        :param lm_loss_fn: Large-margin loss function
+        :param cm_loss_fn_list: Cross-modality loss functions in list format
+        :param optimizer: Optimizer function
+        :param epoch: Current epoch index
+        :param writer: Saving information in Tensorboard format
+        :param config: Configuration file -> config.py
+        :return: Total of training loss value and a dictionary of accuracy data
     """
     model.train()
     total_loss_list, total_cm_loss1_list, total_cm_loss2_list, total_cm_loss3_list, total_lm_loss_list = [], [], [], [], []
@@ -30,7 +31,7 @@ def train(data_loader, model, lm_loss_fn, cm_loss_fn_list, optimizer, epoch, wri
         cm_loss2 = cm_loss_fn_list[1](face_fea, attr_fea)
         cm_loss3 = cm_loss_fn_list[2](ocu_fea, attr_fea)
         lm_loss = lm_loss_fn(s1=face_pred, s2=ocu_pred, target=target)
-        total_l = lm_loss + (cm_loss1 * 10) + ((cm_loss2 + cm_loss3) * 0.5)
+        total_l = lm_loss + cm_loss1 + cm_loss2 + cm_loss3
         
         total_cm_loss1_list.append(cm_loss1)
         total_cm_loss2_list.append(cm_loss2)
@@ -74,15 +75,16 @@ def train(data_loader, model, lm_loss_fn, cm_loss_fn_list, optimizer, epoch, wri
 
 def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
     """
+        Cross-validation function.
 
-        :param data_loader:
-        :param model:
-        :param lm_loss_fn:
-        :param cm_loss_fn:
-        :param epoch:
-        :param writer:
-        :param config:
-        :return:
+        :param data_loader: PyTorch's data loader format
+        :param model: PyTorch's model structure
+        :param lm_loss_fn: Large-margin loss function
+        :param cm_loss_fn: Cross-modality loss function for face and periocular
+        ::param epoch: Current epoch index
+        :param writer: Saving information in Tensorboard format
+        :param config: Configuration file -> config.py
+        :return: Total of validation loss value and a dictionary of accuracy data
     """
     model.eval()
     total_loss_list, total_cm_loss_list, total_lm_loss_list = [], [], []
@@ -100,7 +102,7 @@ def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
             target = target.to(config.device)
             cm_loss = cm_loss_fn(face_fea, ocu_fea)
             lm_loss = lm_loss_fn(s1=face_pred, s2=ocu_pred, target=target)
-            total_l = lm_loss + (cm_loss * 10)
+            total_l = lm_loss + cm_loss
             
             total_cm_loss_list.append(cm_loss)
             total_lm_loss_list.append(lm_loss)
@@ -133,12 +135,13 @@ def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
 
 def get_features(model, data_loader, config, prompt=True):
     """
+        Extract biometric feature embeddinges.
 
-        :param model:
-        :param data_loader:
-        :param config:
-        :param prompt:
-        :return:
+        :param model: PyTorch's model structure
+        :param data_loader: PyTorch's data loader format
+        :param config: Configuration file -> config.py
+        :param prompt: Using prompt strategy, where default value is True
+        :return: gallery feature embedding, probe feature embedding, identity info
     """
     model.eval()
     subject_ids = []
@@ -146,46 +149,46 @@ def get_features(model, data_loader, config, prompt=True):
     for i, (inputs, inputs2, targets) in enumerate(tqdm(data_loader)):
         with torch.no_grad():
             if config.multigpu is True:
-                subject_face_features = model.module.tokenize(inputs.to(config.device), mode="face")
+                gallery_features = model.module.tokenize(inputs.to(config.device), mode="face")
                 if prompt is False:
-                    subject_face_features = model.module.forward_features(subject_face_features)[:, 0, :]
+                    gallery_features = model.module.forward_features(gallery_features)[:, 0, :]
                 else:
-                    subject_face_features = model.module.forward_features(subject_face_features, mode="face")[:, :]
+                    gallery_features = model.module.forward_features(gallery_features, mode="face")[:, :]
 
-                subject_ocular_features = model.module.tokenize(inputs2.to(config.device), mode="ocular")
+                probe_features = model.module.tokenize(inputs2.to(config.device), mode="ocular")
                 if prompt is False:
-                    subject_ocular_features = model.module.forward_features(subject_ocular_features)[:, 0, :]
+                    probe_features = model.module.forward_features(probe_features)[:, 0, :]
                 else:
-                    subject_ocular_features = model.module.forward_features(subject_ocular_features, mode="ocular")[:, :]
+                    probe_features = model.module.forward_features(probe_features, mode="ocular")[:, :]
             else:
-                subject_face_features = model.forward_patch_embed(inputs.to(config.device), mode="face")
+                gallery_features = model.forward_patch_embed(inputs.to(config.device), mode="face")
                 if prompt is False:
-                    subject_face_features = model.forward_features(subject_face_features)[:, 0, :]
+                    gallery_features = model.forward_features(gallery_features)[:, 0, :]
                 elif prompt is True:
-                    subject_face_features = model.forward_features(subject_face_features, mode="face")[:, :]
+                    gallery_features = model.forward_features(gallery_features, mode="face")[:, :]
 
-                subject_ocular_features = model.forward_patch_embed(inputs2.to(config.device), mode="ocular")
+                probe_features = model.forward_patch_embed(inputs2.to(config.device), mode="ocular")
                 if prompt is False:
-                    subject_ocular_features = model.forward_features(subject_ocular_features)[:, 0, :]
+                    probe_features = model.forward_features(probe_features)[:, 0, :]
                 elif prompt is True:
-                    subject_ocular_features = model.forward_features(subject_ocular_features, mode="ocular")[:, :]
+                    probe_features = model.forward_features(probe_features, mode="ocular")[:, :]
 
         subject_ids.extend(targets)
-        for j, feature in enumerate(subject_face_features):
+        for j, feature in enumerate(gallery_features):
             if i == 0 and j == 0:
-                subject_face_features_tensor = torch.unsqueeze(feature.detach(), dim=0)
+                gallery_features_tensor = torch.unsqueeze(feature.detach(), dim=0)
             else:
-                subject_face_features_tensor = torch.cat(
-                    (subject_face_features_tensor, torch.unsqueeze(feature.detach(), dim=0)), dim=0)
+                gallery_features_tensor = torch.cat(
+                    (gallery_features_tensor, torch.unsqueeze(feature.detach(), dim=0)), dim=0)
 
-        for j, feature in enumerate(subject_ocular_features):
+        for j, feature in enumerate(probe_features):
             if i == 0 and j == 0:
-                subject_ocular_features_tensor = torch.unsqueeze(feature.detach(), dim=0)
+                probe_features_tensor = torch.unsqueeze(feature.detach(), dim=0)
             else:
-                subject_ocular_features_tensor = torch.cat(
-                    (subject_ocular_features_tensor, torch.unsqueeze(feature.detach(), dim=0)), dim=0)
+                probe_features_tensor = torch.cat(
+                    (probe_features_tensor, torch.unsqueeze(feature.detach(), dim=0)), dim=0)
 
-    return subject_face_features_tensor, subject_ocular_features_tensor, torch.tensor(subject_ids)
+    return gallery_features_tensor, probe_features_tensor, torch.tensor(subject_ids)
 
 
 def evaluate_crossmodal_data_features_dict(gallery_data, probe_data, gallery_gt, probe_gt, method="max"):
