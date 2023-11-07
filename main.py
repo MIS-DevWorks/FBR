@@ -125,11 +125,11 @@ def evaluation(args):
     print("-----------------------------------------------------------------------------")
     print("\tLoading evaluation dataset")
     if args.dataset_name == "custom" or args.dataset_name == "other":
-        gallery_dataset = custom_multimodal_dataset(config, subdir="identification_base/rgb/", train_augmentation=False,
+        gallery_dataset = custom_multimodal_dataset(config, subdir="rgb/", train_augmentation=False,
                                                     imagesize=config.image_size)
         gallery_data_loader = DataLoader(gallery_dataset, batch_size=config.batch_size, shuffle=False,
                                          num_workers=config.num_workers)
-        probe_dataset = custom_multimodal_dataset(config, subdir="identification_test/rgb/", train_augmentation=False,
+        probe_dataset = custom_multimodal_dataset(config, subdir="rgb/", train_augmentation=False,
                                                   imagesize=config.image_size)
         probe_data_loader = DataLoader(probe_dataset, batch_size=config.batch_size, shuffle=False,
                                        num_workers=config.num_workers)
