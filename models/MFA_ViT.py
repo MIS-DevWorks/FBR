@@ -366,9 +366,9 @@ class Mlp(nn.Module):
         return x
 
 
-class DWC_MSA(nn.Module):
+class DWFC_MSA(nn.Module):
     """
-        Depth-wise Convolutional-based Multi-head Self-Attention Layer (DWC-MSA layer)
+        Depth-wise Fusion Convolutional-based Multi-head Self-Attention Layer (DWFC-MSA layer)
     """
     def __init__(self, dim, depth_block_channel, num_heads, attn_drop=0., proj_drop=0.):
         """
@@ -385,7 +385,7 @@ class DWC_MSA(nn.Module):
         head_dim = dim // num_heads
         self.scale = head_dim ** -0.5
 
-        self.q, self.k, self.v = DW_Conv(depth_block_channel), DW_Conv(depth_block_channel), DW_Conv(depth_block_channel)
+        self.q, self.k, self.v = DWS_Conv(depth_block_channel), DWS_Conv(depth_block_channel), DWS_Conv(depth_block_channel)
         self.attn_drop = nn.Dropout(attn_drop)
         self.proj = nn.Linear(dim, dim)
         self.proj_drop = nn.Dropout(proj_drop)
@@ -426,7 +426,7 @@ class MFA_layer(nn.Module):
         """
         super().__init__()
         self.norm1 = norm_layer(dim)
-        self.attn = DWC_MSA(dim, depth_block_channel=depth_block_channel, num_heads=num_heads,
+        self.attn = DWFC_MSA(dim, depth_block_channel=depth_block_channel, num_heads=num_heads,
                                    attn_drop=attn_drop, proj_drop=drop)
         # # NOTE: drop path for stochastic depth, we shall see if this is better than dropout here
         self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
@@ -440,9 +440,9 @@ class MFA_layer(nn.Module):
         return x
 
 
-class DW_Conv(nn.Module):
+class DWS_Conv(nn.Module):
     """
-        Depth-wise Convolutional Layer
+        Depth-wise Convolutional Layer (DWS-Conv)
     """
     def __init__(self, channels):
         """
@@ -450,7 +450,7 @@ class DW_Conv(nn.Module):
 
             :param channels: Size of input channel
         """
-        super(DW_Conv, self).__init__()
+        super(DWS_Conv, self).__init__()
         self.depthwise = nn.Conv2d(channels, channels, kernel_size=3, padding=1, groups=channels)
 
     def forward(self, x):
@@ -481,8 +481,8 @@ class MFA_block(nn.Module):
         self.transformer_block = MFA_layer(
             dim=dim, depth_block_channel=depth_block_channel, num_heads=num_heads, mlp_ratio=mlp_ratio, drop=drop,
             attn_drop=attn_drop, drop_path=drop_path, norm_layer=norm_layer, act_layer=act_layer)
-        self.depthwise_conv = DW_Conv(channels=depth_block_channel)
-        self.depthwise_conv2 = DW_Conv(channels=depth_block_channel)
+        self.depthwise_conv = DWS_Conv(channels=depth_block_channel)
+        self.depthwise_conv2 = DWS_Conv(channels=depth_block_channel)
         self.conv_1x1 = nn.Conv2d(depth_block_channel * 2, depth_block_channel, kernel_size=1, padding=0)
         self.relu = nn.LeakyReLU()
         self.drop = nn.Dropout(drop)
