@@ -27,7 +27,7 @@ def training(args):
     # Dataset
     print("-----------------------------------------------------------------------------")
     if args.dataset_name == "VGGFace2" or args.dataset_name is None:
-        print("\tDataset Loading: " + str(args.training_dataset))
+        print("\tDataset Loading: " + str(args.dataset_name))
         train_dataset = VGGFace2_dataset(csv_path=config.dataset_path_csv_train_path,
                                          img_path=config.dataset_path_img_path, train_augmentation=True,
                                          image_size=config.image_size)
