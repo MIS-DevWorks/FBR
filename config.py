@@ -9,8 +9,8 @@ if not os.path.exists("save"):
 #   Path
 dataset_path_csv_train_path             = 'data/MAAD_Face_filtered_train.csv'
 dataset_path_csv_test_path              = 'data/MAAD_Face_filtered_valid.csv'
-dataset_path_img_path                   = '/media/leslie/samsung/Biometrics/VGGFace2/crop/train/'
-other_dataset_path_img                  = '/media/leslie/samsung/Biometrics/other dataset/Ethnic FacialDB/'
+dataset_path_img_path                   = 'VGGFace2/train/'
+other_dataset_path_img                  = 'Sample/'
 pretrained_weights                      = 'pretrained/MFA-ViT.pt'
 save_dir                                = 'save/MFA-ViT_version_{}'.format(datetime.now().strftime("%Y%m%d_%H%M%S"))
 
