@@ -137,14 +137,14 @@ def evaluation(args):
 
     print("-----------------------------------------------------------------------------")
     print("\tMFA-ViT Model\n")
-    print("\tCofiguration Settings")
+    print("\tConfiguration Settings")
     print("\t\tInput Size (face and periocular): %d" % config.image_size)
     print("\t\tPatch Embedding Size: %d" % config.patch_size)
     print("\t\tLayer Depth: %d" % config.layer_depth)
     print("\t\tNumber of Head: %d" % config.num_heads)
     print("\t\tPrompt Strategy: %s" % config.prompt_mode)
     print("\t\tSize of Prompt Embeddings: %d" % config.prompt_tokens)
-    print("\t\tClassitiona Head Input: %s" % config.head_strategy)
+    print("\t\tClassification Head Input: %s" % config.head_strategy)
 
     # Model
     model = MFA_ViT(img_size=config.image_size, patch_size=config.patch_size, in_chans=config.in_chans,
