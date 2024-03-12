@@ -2,7 +2,7 @@
 
 
 ## Introduction
-This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, accepted by CVPR 2024.
+This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, which is accepted by CVPR 2024.
 
 Version 1.0 (19.10.2023)
 <br> <br>
@@ -44,3 +44,11 @@ This work is an open-source under MIT license.
 <br> <br>
 
 ## Citing
+```
+@InProceedings{FBR_2024_CVPR,
+    author    = {Tiong, Leslie Ching Ow and Sigmund, Dick and Chan, Chen-Hui and Teoh, Andrew Beng Jin},
+    title     = {Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning},
+    booktitle = {Proceedings of IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year      = {2024},
+}
+```
