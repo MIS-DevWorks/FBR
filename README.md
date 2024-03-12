@@ -2,7 +2,7 @@
 
 
 ## Introduction
-This repository contains the source code for the contributions in this article _Flexible Biometrics Identification via Multimodal Fusion Attention Vision Transformer_.
+This repository contains the source code for the contributions in this article _Flexible Biometrics Identification via Multimodal Fusion Attention Vision Transformer_, accepted by CVPR 2024.
 
 Version 1.0 (19.10.2023)
 <br> <br>
