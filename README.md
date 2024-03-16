@@ -36,7 +36,7 @@ _Please ensure that the PyTorch version used is up to 1.13.1, as this is require
 <br> <br>
 
 ## Pretrained Download
-
+Our pretrained model can be found [here](https://drive.google.com/drive/folders/14ZKsEBJ9jweiU8obViKHzHEyiLts8UWK?usp=sharing).
 <br> <br>
 
 ## License
