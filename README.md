@@ -8,7 +8,7 @@ Version 1.0 (19.10.2023)
 <br> <br>
 
 ## Dataset
-We utilize the VGGFace2 and MAAD datasets to train this model, which are vailable as follows:
+We utilize the VGGFace2 and MAAD datasets to train this model, which are available as follows:
 - [VGGFace2](https://www.robots.ox.ac.uk/~vgg/data/vgg_face2/)
 - [MAAD](https://github.com/pterhoer/MAAD-Face)
 <br> <br>
