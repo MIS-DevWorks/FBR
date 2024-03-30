@@ -13,6 +13,13 @@ We utilize the VGGFace2 and MAAD datasets to train this model, which are availab
 - [MAAD](https://github.com/pterhoer/MAAD-Face)
 <br> <br>
 
+## Requirements
+  1) [Anaconda3](https://www.anaconda.com/download)
+  2) [PyTorch](https://pytorch.org/get-started/locally)
+  3) [RTDL](https://pypi.org/project/rtdl)
+  3) [Natsort](https://pypi.org/project/natsort)
+<br> <br>
+
 ## Coding Usage
 - For training, please run `main.py` with the given configurations in config.py
 ```shell
@@ -31,8 +38,6 @@ _For better understanding, please refer to this_ [code usage](code%20usage) _dir
 We tested the codes with:
   1) PyTorch 1.13.1 with and without GPU, under Ubuntu 18.04/20.04 and Anaconda3 (Python 3.8 and above)
   2) PyTorch 1.12.0 with and without GPU, under Windows 10 and Anaconda3 (Python 3.8 and above)
-
-_Please ensure that the PyTorch version used is up to 1.13.1, as this is required by the Python Library Package_ [rtdl](https://github.com/Yura52/rtdl). 
 <br> <br>
 
 ## Pretrained Download
