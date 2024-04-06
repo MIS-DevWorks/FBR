@@ -721,7 +721,7 @@ class MFA_ViT(nn.Module):
         B, N, H, W = x.shape
         x = torch.reshape(x, (B, N, -1))
 
-        # Classfication head input type
+        # Classification head input type
         if self.prompt_mode is None:
             if self.head_strategy == "cls":
                 x = x[:, 0, :]
