@@ -125,6 +125,7 @@ def evaluation(args):
     print("-----------------------------------------------------------------------------")
     print("\tLoading evaluation dataset")
     if args.dataset_name == "custom" or args.dataset_name == "other":
+        print("\t\tDataset: %s" % str(args.dataset_name))
         gallery_dataset = custom_multimodal_dataset(config, subdir="rgb/", train_augmentation=False,
                                                     imagesize=config.image_size)
         gallery_data_loader = DataLoader(gallery_dataset, batch_size=config.batch_size, shuffle=False,
@@ -174,7 +175,7 @@ def evaluation(args):
                                                                   gallery_gt=gallery_data_features_dict[2],
                                                                   probe_gt=probe_data_features_dict[2],
                                                                   method='max')
-    print("\t\t[TEST] face2face acc by cos_sim - max    : {}".format(face_face_acc_by_max))
+    print("\t\t[TEST] face2face acc by cos_sim - max\t: {}".format(face_face_acc_by_max))
 
     ''' gallery ocu vs probe ocu '''
     ocu_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[1],
@@ -182,7 +183,7 @@ def evaluation(args):
                                                                 gallery_gt=gallery_data_features_dict[2],
                                                                 probe_gt=probe_data_features_dict[2],
                                                                 method='max')
-    print("\t\t[TEST] ocu2ocu acc by cos_sim - max    : {}".format(ocu_ocu_acc_by_max))
+    print("\t\t[TEST] ocu2ocu acc by cos_sim - max\t: {}".format(ocu_ocu_acc_by_max))
 
     ''' gallery face vs probe ocu '''
     face_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[0],
@@ -190,7 +191,7 @@ def evaluation(args):
                                                                  gallery_gt=gallery_data_features_dict[2],
                                                                  probe_gt=probe_data_features_dict[2],
                                                                  method='max')
-    print("\t\t[TEST] face2ocu acc by cos_sim - max    : {}".format(face_ocu_acc_by_max))
+    print("\t\t[TEST] face2ocu acc by cos_sim - max\t: {}".format(face_ocu_acc_by_max))
 
     ''' gallery ocu vs probe face '''
     ocu_face_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[1],
@@ -198,7 +199,7 @@ def evaluation(args):
                                                                  gallery_gt=gallery_data_features_dict[2],
                                                                  probe_gt=probe_data_features_dict[2],
                                                                  method='max')
-    print("\t\t[TEST] ocu2face acc by cos_sim - max    : {}".format(ocu_face_acc_by_max))
+    print("\t\t[TEST] ocu2face acc by cos_sim - max\t: {}".format(ocu_face_acc_by_max))
     print("-----------------------------------------------------------------------------")
 
 
