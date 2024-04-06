@@ -191,15 +191,16 @@ def get_features(model, data_loader, config, prompt=True):
     return gallery_features_tensor, probe_features_tensor, torch.tensor(subject_ids)
 
 
-def evaluate_crossmodal_data_features_dict(gallery_data, probe_data, gallery_gt, probe_gt, method="max"):
+def evaluate_crossmodal_data_features_dict(gallery_data, probe_data, gallery_gt, probe_gt):
     """
+        Evaluation on cross-modality
 
-        :param gallery_data:
-        :param probe_data:
-        :param gallery_gt:
-        :param probe_gt:
-        :param method:
-        :return:
+        :param gallery_data: Gallery set
+        :param probe_data: Probe set
+        :param gallery_gt: Gallery ground truth set
+        :param probe_gt: Probe ground truth set
+
+        :return: Accuracy
     """
     total_true_preds = 0
     cos_sim_score_list = []
@@ -208,10 +209,7 @@ def evaluate_crossmodal_data_features_dict(gallery_data, probe_data, gallery_gt,
             test_data_feature.repeat(len(gallery_data), 1), gallery_data))
 
     for i, cos_sim_score in enumerate(tqdm(cos_sim_score_list)):
-        if method == "max":
-            if gallery_gt[torch.argmax(cos_sim_score).item()] == probe_gt[i]:
-                total_true_preds += 1
-        else:
-            raise "{} is not implemented yet".format(method)
+        if gallery_gt[torch.argmax(cos_sim_score).item()] == probe_gt[i]:
+            total_true_preds += 1
 
     return (total_true_preds / len(probe_data)) * 100.
