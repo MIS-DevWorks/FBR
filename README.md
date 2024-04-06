@@ -17,7 +17,7 @@ We utilize the VGGFace2 and MAAD datasets to train this model, which are availab
   1) [Anaconda3](https://www.anaconda.com/download)
   2) [PyTorch](https://pytorch.org/get-started/locally)
   3) [RTDL](https://pypi.org/project/rtdl)
-  3) [Natsort](https://pypi.org/project/natsort)
+  4) [Natsort](https://pypi.org/project/natsort)
 <br> <br>
 
 ## Coding Usage
