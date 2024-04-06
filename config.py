@@ -1,9 +1,4 @@
 from datetime import datetime
-import os
-
-
-if not os.path.exists("save"):
-    os.makedirs("save")
 
 
 #   Path
