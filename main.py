@@ -21,6 +21,10 @@ def training(args):
         "face": 0.,
         "ocu": 0.,
     }
+
+    if not os.path.exists("save"):
+        os.makedirs("save")
+    
     writer = SummaryWriter(log_dir=config.save_dir + '/summary')
     os.makedirs(config.save_dir + "/checkpoints", exist_ok=True)
 
