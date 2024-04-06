@@ -41,7 +41,7 @@ We tested the codes with:
 <br> <br>
 
 ## Pretrained Download
-Our pretrained model can be found [here](https://drive.google.com/drive/folders/14ZKsEBJ9jweiU8obViKHzHEyiLts8UWK?usp=sharing).
+Our pretrained model can be accessed via [here](https://drive.google.com/drive/folders/14ZKsEBJ9jweiU8obViKHzHEyiLts8UWK?usp=sharing). Upon downloading, it should be decompressed and configured within a directory named _pretrained_ to ensure proper setup.
 <br> <br>
 
 ## License
