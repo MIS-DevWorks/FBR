@@ -173,32 +173,28 @@ def evaluation(args):
     face_face_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[0],
                                                                   probe_data=probe_data_features_dict[0],
                                                                   gallery_gt=gallery_data_features_dict[2],
-                                                                  probe_gt=probe_data_features_dict[2],
-                                                                  method='max')
+                                                                  probe_gt=probe_data_features_dict[2])
     print("\t\t[TEST] face2face acc by cos_sim - max\t: {}".format(face_face_acc_by_max))
 
     ''' gallery ocu vs probe ocu '''
     ocu_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[1],
                                                                 probe_data=probe_data_features_dict[1],
                                                                 gallery_gt=gallery_data_features_dict[2],
-                                                                probe_gt=probe_data_features_dict[2],
-                                                                method='max')
+                                                                probe_gt=probe_data_features_dict[2])
     print("\t\t[TEST] ocu2ocu acc by cos_sim - max\t: {}".format(ocu_ocu_acc_by_max))
 
     ''' gallery face vs probe ocu '''
     face_ocu_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[0],
                                                                  probe_data=probe_data_features_dict[1],
                                                                  gallery_gt=gallery_data_features_dict[2],
-                                                                 probe_gt=probe_data_features_dict[2],
-                                                                 method='max')
+                                                                 probe_gt=probe_data_features_dict[2])
     print("\t\t[TEST] face2ocu acc by cos_sim - max\t: {}".format(face_ocu_acc_by_max))
 
     ''' gallery ocu vs probe face '''
     ocu_face_acc_by_max = evaluate_crossmodal_data_features_dict(gallery_data=gallery_data_features_dict[1],
                                                                  probe_data=probe_data_features_dict[0],
                                                                  gallery_gt=gallery_data_features_dict[2],
-                                                                 probe_gt=probe_data_features_dict[2],
-                                                                 method='max')
+                                                                 probe_gt=probe_data_features_dict[2])
     print("\t\t[TEST] ocu2face acc by cos_sim - max\t: {}".format(ocu_face_acc_by_max))
     print("-----------------------------------------------------------------------------")
 
