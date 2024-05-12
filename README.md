@@ -1,6 +1,6 @@
-<p align="center">
+<h1 align="center">
 # Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
-</p>
+</h1>
 
 
 ## Introduction
