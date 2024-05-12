@@ -3,8 +3,7 @@
 </h1>
 <p align="center">
   Leslie Ching Ow Tiong<sup>*,1</sup>,  Dick Sigmund<sup>*,2</sup>, Chen-Hui Chan<sup>3</sup>, Andrew Beng Jin Teoh<sup>4</sup>
-</p>
-<p align="center">
+  <br/>
   <sup>1</sup>Samusung Electronics,  <sup>2</sup>AIDOT Inc., <sup>3</sup>Korea Institute of Science and Technology, <sup>4</sup>Yonsei University
 </p>
 
