@@ -11,8 +11,8 @@
 ## Introduction
 This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, which is accepted by CVPR 2024.
 
-Version 1.0 (18.03.2024)
-<br> <br>
+Version 1.0 (13.05.2024)
+<br/> <br/>
 
 ## Dataset
 We utilize the VGGFace2 and MAAD datasets to train this model, which are available as follows:
@@ -25,7 +25,7 @@ We utilize the VGGFace2 and MAAD datasets to train this model, which are availab
   2) [PyTorch](https://pytorch.org/get-started/locally)
   3) [RTDL](https://pypi.org/project/rtdl)
   4) [Natsort](https://pypi.org/project/natsort)
-<br> <br>
+<br/> <br/>
 
 ## Coding Usage
 - For training, please run `main.py` with the given configurations in config.py
@@ -39,7 +39,7 @@ $ python main.py --dataset_name "other"
 ```
 
 _For better understanding, please refer to this_ [code usage](code%20usage) _directory for further details. In this directory, we provide two examples:_ `code usage(Dataset).py` _and_ `code usage(MFA-ViT).py`. 
-<br> <br>
+<br/> <br/>
 
 ## Compatibility
 We tested the codes with:
@@ -49,11 +49,11 @@ We tested the codes with:
 
 ## Pretrained Download
 Our pretrained model can be accessed via [here](https://drive.google.com/drive/folders/1aX_UBGZN_as84h5Ioq42JC_zAjwa4uDw?usp=sharing). Upon downloading, it should be decompressed and configured within a directory named _pretrained_ to ensure proper setup.
-<br> <br>
+<br/> <br/>
 
 ## License
 This work is an open-source under MIT license.
-<br> <br>
+<br/> <br/>
 
 ## Citing
 ```
