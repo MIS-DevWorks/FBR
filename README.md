@@ -1,6 +1,9 @@
 <h1 align="center">
   Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
 </h1>
+<h3 align="center>
+  Leslie Ching Ow Tiong<sup>1</sup>,  Dick Sigmund<sup>2</sup>, Chen-Hui Chan<sup>3</sup>, Andrew Beng Jin Teoh<sup>4</sup>
+</h3>
 
 
 ## Introduction
