@@ -1,5 +1,5 @@
 <h1 align="center">
-# Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
+  Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
 </h1>
 
 
