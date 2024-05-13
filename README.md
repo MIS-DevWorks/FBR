@@ -13,7 +13,7 @@
 </p>
 <br/>
 
-[![en](https://img.shields.io/badge/video-youtube-red.svg](https://img.shields.io/badge/video-youtube-red.svg)]
+[![en](https://img.shields.io/badge/video-youtube-red.svg)](README.kr.md)
 
 
 ## Introduction
