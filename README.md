@@ -20,7 +20,14 @@
 ## Introduction
 This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, which is accepted by **CVPR 2024**.
 
-Version 1.0.1 (13.05.2024)
+<p align="center">
+    <img src=".github/MFA-ViT.png" width="70%" alt="MFA-ViT" />
+</p>
+Flexible Biometric Recognition (FBR) is designed to advance conventional face, periocular, and multimodal face-periocular biometrics across both intra- and cross-modality recognition tasks. 
+FBR strategically utilizes the Multimodal Fusion Attention (MFA) and Multimodal Prompt Tuning (MPT) mechanisms within the Vision Transformer architecture.
+
+MFA facilitates the fusion of modalities, ensuring cohesive alignment between facial and periocular embeddings while incorporating soft-biometrics to enhance the model’s ability to discriminate between individuals. The fusion of three modalities is pivotal in exploring interrelationships between different modalities.
+MPT serves as a unifying bridge, intertwining inputs and promoting cross-modality interactions while preserving their distinctive characteristics.
 <br/> <br/>
 
 
@@ -39,7 +46,7 @@ We utilize the VGGFace2 and MAAD datasets to train this model, which are availab
 <br/> <br/>
 
 
-## Coding Usage
+### Coding Usage
 - For training, please run `main.py` with the given configurations in config.py
 ```shell
 $ python main.py --training_mode --dataset_name "VGGFace2"
