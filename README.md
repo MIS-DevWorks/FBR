@@ -11,7 +11,7 @@
   <sup>&dagger;</sup>Corresponding author
   <br/><br/>
   <a href="<https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s>">
-    <img src="https://img.shields.io/badge/video-youtube-red.svg" alt="YouTube Video">
+    <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video">
   </a>
 </p>
 <br/>
