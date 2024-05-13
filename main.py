@@ -24,7 +24,7 @@ def training(args):
 
     if not os.path.exists("save"):
         os.makedirs("save")
-    
+
     writer = SummaryWriter(log_dir=config.save_dir + '/summary')
     os.makedirs(config.save_dir + "/checkpoints", exist_ok=True)
 
@@ -63,11 +63,11 @@ def training(args):
                     prompt_tokens=config.prompt_tokens, head_strategy=config.head_strategy)
 
     if config.multigpu:
-        print("\t\tUsing Multi-gpu")
+        print("\t\tUsing Multi-gpu: True")
         model = torch.nn.DataParallel(model, device_ids=config.device_ids)
 
     if config.pretrained_weights is not None:
-        print("\t\tLoading pre-trained weights")
+        print("\t\tUsing pre-trained weights: True")
         model.load_state_dict(torch.load(config.pretrained_weights, map_location=config.device), strict=True)
 
     model = model.to(config.device)
@@ -118,7 +118,7 @@ def training(args):
         print("    [Valid] loss: {:.4f},\nacc: {}\n".format(valid_loss, valid_acc_dict))
         print("    [BEST] acc: {}".format(cur_acc_dict))
     print("-----------------------------------------------------------------------------\n")
-        
+
 
 def evaluation(args):
     """
@@ -150,6 +150,8 @@ def evaluation(args):
     print("\t\tPrompt Strategy: %s" % config.prompt_mode)
     print("\t\tSize of Prompt Embeddings: %d" % config.prompt_tokens)
     print("\t\tClassification Head Input: %s" % config.head_strategy)
+    print("\t\tUsing GPU: %s" % str(torch.cuda.is_available()))
+    print("\t\tGPU Device: %s" % str(torch.cuda.get_device_name()))
 
     # Model
     model = MFA_ViT(img_size=config.image_size, patch_size=config.patch_size, in_chans=config.in_chans,
@@ -159,12 +161,12 @@ def evaluation(args):
                     drop_path_rate=config.drop_path_rate, prompt_mode=config.prompt_mode,
                     prompt_tokens=config.prompt_tokens, head_strategy=config.head_strategy)
     if config.multigpu:
-        print("\t\tUsing Multi-GPU")
+        print("\t\tUsing Multi-GPU: True")
         model = torch.nn.DataParallel(model, device_ids=config.device_ids)
     model = model.to(config.device)
 
     if config.pretrained_weights is not None:
-        print("\t\tUsing pre-trained weights")
+        print("\t\tUsing pre-trained weights: True")
         model.load_state_dict(torch.load(config.pretrained_weights, map_location=config.device), strict=True)
     print("-----------------------------------------------------------------------------\n\n")
 

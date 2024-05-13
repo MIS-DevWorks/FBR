@@ -50,7 +50,7 @@ $ python main.py --training_mode --dataset_name "VGGFace2"
 $ python main.py --dataset_name "other"
 ```
 
-_For better understanding, please refer to this_ [code usage](code%20usage) _directory for further details. In this directory, we provide two examples:_ `code usage(Dataset).py` _and_ `code usage(MFA-ViT).py`. 
+_For better understanding, please refer to this_ [code example](code%20example) _directory for further details. In this directory, we provide two examples:_ `code usage(Dataset).py` _and_ `code usage(MFA-ViT).py`. 
 <br/> <br/>
 
 
