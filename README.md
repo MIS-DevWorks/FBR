@@ -9,6 +9,8 @@
   <sup>*</sup>These authors contributed equally
   <br/>
   <sup>&dagger;</sup>Corresponding author
+  <br/><br/>
+  [![YouTube](https://img.shields.io/badge/video-youtube-red.svg)]([README.kr.md](https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s))
 </p>
 <br/>
 
