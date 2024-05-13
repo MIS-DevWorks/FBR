@@ -23,11 +23,13 @@ This repository contains the source code for the contributions in this article _
 Version 1.0.1 (13.05.2024)
 <br/> <br/>
 
+
 ## Dataset
 We utilize the VGGFace2 and MAAD datasets to train this model, which are available as follows:
 - [VGGFace2](https://www.robots.ox.ac.uk/~vgg/data/vgg_face2/)
 - [MAAD](https://github.com/pterhoer/MAAD-Face)
-<br> <br>
+<br/> <br/>
+
 
 ## Requirements
   1) [Anaconda3](https://www.anaconda.com/download)
@@ -35,6 +37,7 @@ We utilize the VGGFace2 and MAAD datasets to train this model, which are availab
   3) [RTDL](https://pypi.org/project/rtdl)
   4) [Natsort](https://pypi.org/project/natsort)
 <br/> <br/>
+
 
 ## Coding Usage
 - For training, please run `main.py` with the given configurations in config.py
@@ -50,19 +53,23 @@ $ python main.py --dataset_name "other"
 _For better understanding, please refer to this_ [code usage](code%20usage) _directory for further details. In this directory, we provide two examples:_ `code usage(Dataset).py` _and_ `code usage(MFA-ViT).py`. 
 <br/> <br/>
 
+
 ## Compatibility
 We tested the codes with:
   1) PyTorch 1.13.1 with and without GPU, under Ubuntu 18.04/20.04 and Anaconda3 (Python 3.8 and above)
   2) PyTorch 1.12.0 with and without GPU, under Windows 10 and Anaconda3 (Python 3.8 and above)
-<br> <br>
+<br/> <br/>
+
 
 ## Pretrained Download
 Our pretrained model can be accessed via [here](https://drive.google.com/drive/folders/1aX_UBGZN_as84h5Ioq42JC_zAjwa4uDw?usp=sharing). Upon downloading, it should be decompressed and configured within a directory named _pretrained_ to ensure proper setup.
 <br/> <br/>
 
+
 ## License
 This work is an open-source under MIT license.
 <br/> <br/>
+
 
 ## Citing
 ```
