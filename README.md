@@ -10,8 +10,8 @@
   <br/>
   <sup>&dagger;</sup>Corresponding author
   <br/><br/>
-  [https://img.shields.io/badge/video-youtube-red.svg](https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s)
 </p>
+[https://img.shields.io/badge/video-youtube-red.svg](https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s)
 <br/>
 
 
