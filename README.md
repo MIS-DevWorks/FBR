@@ -13,7 +13,7 @@
 </p>
 <br/>
 
-[![https://img.shields.io/badge/video-youtube-red.svg](https://img.shields.io/badge/video-youtube-red.svg)]
+[https://img.shields.io/badge/video-youtube-red.svg](https://img.shields.io/badge/video-youtube-red.svg)
 
 
 ## Introduction
