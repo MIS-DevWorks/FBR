@@ -11,7 +11,7 @@
   <sup>&dagger;</sup>Corresponding author
   <br/><br/>
 </p>
-[![Watch the video on YouTube](<http://img.youtube.com/vi/RN0qkQ3wKg8/0.jpg>)](<https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s>)
+[![[Watch the video on YouTube](https://img.shields.io/badge/video-youtube-red.svg)](<https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s>)]
 <br/>
 
 
