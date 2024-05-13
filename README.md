@@ -1,18 +1,18 @@
 <h1 align="center">
-  Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
+    Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning
 </h1>
 <p align="center">
-  Leslie Ching Ow Tiong<sup>*,1</sup>,  Dick Sigmund<sup>*,2</sup>, Chen-Hui Chan<sup>3</sup>, Andrew Beng Jin Teoh<sup>&dagger;,4</sup>
-  <br/>
-  <sup>1</sup>Samsung Electronics,  <sup>2</sup>AIDOT Inc., <sup>3</sup>Korea Institute of Science and Technology, <sup>4</sup>Yonsei University
-  <br/>
-  <sup>*</sup>These authors contributed equally
-  <br/>
-  <sup>&dagger;</sup>Corresponding author
-  <br/><br/>
-  <a href="https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s">
-    <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video">
-  </a>
+    Leslie Ching Ow Tiong<sup>*,1</sup>,  Dick Sigmund<sup>*,2</sup>, Chen-Hui Chan<sup>3</sup>, Andrew Beng Jin Teoh<sup>&dagger;,4</sup>
+    <br/>
+    <sup>1</sup>Samsung Electronics,  <sup>2</sup>AIDOT Inc., <sup>3</sup>Korea Institute of Science and Technology, <sup>4</sup>Yonsei University
+    <br/>
+    <sup>*</sup>These authors contributed equally
+    <br/>
+    <sup>&dagger;</sup>Corresponding author
+    <br/><br/>
+    <a href="https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s">
+        <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video">
+    </a>
 </p>
 <br/>
 
@@ -24,12 +24,12 @@ This repository contains the source code for the contributions in this article _
     <img src=".github/MFA-ViT.png" width="70%" alt="MFA-ViT" />
 </p>
 <p align="justify">
-Flexible Biometric Recognition (FBR) is designed to advance conventional face, periocular, and multimodal face-periocular biometrics across both intra- and cross-modality recognition tasks. 
-FBR strategically utilizes the Multimodal Fusion Attention (MFA) and Multimodal Prompt Tuning (MPT) mechanisms within the Vision Transformer architecture.
+    Flexible Biometric Recognition (FBR) is designed to advance conventional face, periocular, and multimodal face-periocular biometrics across both intra- and cross-modality recognition tasks. 
+    FBR strategically utilizes the Multimodal Fusion Attention (MFA) and Multimodal Prompt Tuning (MPT) mechanisms within the Vision Transformer architecture.
 </p>
 <p align="justify">
-MFA facilitates the fusion of modalities, ensuring cohesive alignment between facial and periocular embeddings while incorporating soft-biometrics to enhance the model’s ability to discriminate between individuals. The fusion of three modalities is pivotal in exploring interrelationships between different modalities.
-MPT serves as a unifying bridge, intertwining inputs and promoting cross-modality interactions while preserving their distinctive characteristics.
+    MFA facilitates the fusion of modalities, ensuring cohesive alignment between facial and periocular embeddings while incorporating soft-biometrics to enhance the model’s ability to discriminate between individuals. The fusion of three modalities is pivotal in exploring interrelationships between different modalities.
+    MPT serves as a unifying bridge, intertwining inputs and promoting cross-modality interactions while preserving their distinctive characteristics.
 </p>
 <br/>
 
