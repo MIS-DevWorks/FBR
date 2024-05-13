@@ -23,11 +23,14 @@ This repository contains the source code for the contributions in this article _
 <p align="center">
     <img src=".github/MFA-ViT.png" width="70%" alt="MFA-ViT" />
 </p>
+<p align="justify">
 Flexible Biometric Recognition (FBR) is designed to advance conventional face, periocular, and multimodal face-periocular biometrics across both intra- and cross-modality recognition tasks. 
 FBR strategically utilizes the Multimodal Fusion Attention (MFA) and Multimodal Prompt Tuning (MPT) mechanisms within the Vision Transformer architecture.
-
+</p>
+<p align="justify">
 MFA facilitates the fusion of modalities, ensuring cohesive alignment between facial and periocular embeddings while incorporating soft-biometrics to enhance the model’s ability to discriminate between individuals. The fusion of three modalities is pivotal in exploring interrelationships between different modalities.
 MPT serves as a unifying bridge, intertwining inputs and promoting cross-modality interactions while preserving their distinctive characteristics.
+</p>
 <br/> <br/>
 
 
