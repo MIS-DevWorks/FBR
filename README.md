@@ -10,7 +10,7 @@
     <br/>
     <sup>&dagger;</sup>Corresponding author
     <br/><br/>
-    <a href="https://www.youtube.com/watch?v=RN0qkQ3wKg8&t=254s">
+    <a href="https://www.youtube.com/watch?v=RN0qkQ3wKg8">
         <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video">
     </a>
 </p>
