@@ -20,7 +20,7 @@
 ## Introduction
 This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, which is accepted by CVPR 2024.
 
-Version 1.0 (13.05.2024)
+Version 1.0.1 (13.05.2024)
 <br/> <br/>
 
 ## Dataset
