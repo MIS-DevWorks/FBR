@@ -31,8 +31,7 @@ FBR strategically utilizes the Multimodal Fusion Attention (MFA) and Multimodal 
 MFA facilitates the fusion of modalities, ensuring cohesive alignment between facial and periocular embeddings while incorporating soft-biometrics to enhance the model’s ability to discriminate between individuals. The fusion of three modalities is pivotal in exploring interrelationships between different modalities.
 MPT serves as a unifying bridge, intertwining inputs and promoting cross-modality interactions while preserving their distinctive characteristics.
 </p>
-<br/> <br/>
-
+<br/>
 
 ## Dataset
 We utilize the VGGFace2 and MAAD datasets to train this model, which are available as follows:
