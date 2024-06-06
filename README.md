@@ -21,7 +21,7 @@
 This repository contains the source code for the contributions in this article _Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning_, which is accepted by **CVPR 2024**.
 
 <p align="center">
-    <img src=".github/MFA-ViT.png" width="70%" alt="MFA-ViT" />
+    <img src=".github/MFA-ViT.png" width="80%" alt="MFA-ViT" />
 </p>
 <p align="justify">
     Flexible Biometric Recognition (FBR) is designed to advance conventional face, periocular, and multimodal face-periocular biometrics across both intra- and cross-modality recognition tasks. 
