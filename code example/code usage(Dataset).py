@@ -1,8 +1,8 @@
 import sys
 import os
 
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.'))
-sys.path.append(parent_dir)
+lib_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.'))
+sys.path.append(lib_dir)
 
 from torch.utils.data import DataLoader
 from utils.dataset import VGGFace2_dataset
