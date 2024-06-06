@@ -1,7 +1,11 @@
 import sys
-import config
-import torch
+import os
 
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.'))
+sys.path.append(parent_dir)
+
+import torch
+import config
 from models.MFA_ViT import MFA_ViT, model_params
 
 

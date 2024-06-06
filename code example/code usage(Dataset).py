@@ -1,9 +1,15 @@
+import sys
+import os
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.'))
+sys.path.append(parent_dir)
+
 from torch.utils.data import DataLoader
 from utils.dataset import VGGFace2_dataset
 
 
-dataset = VGGFace2_dataset(csv_path="../data/MAAD_Face_filtered_train.csv",
-                           img_path='../data/VGGFace2/train/',
+dataset = VGGFace2_dataset(csv_path="./data/MAAD_Face_filtered_train.csv",
+                           img_path='./data/VGGFace2/train/',
                            train_augmentation=True, image_size=112)
 data_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4)
 
