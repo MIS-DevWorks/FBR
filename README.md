@@ -85,7 +85,7 @@ This work is an open-source under MIT license.
 @InProceedings{FBR_2024_CVPR,
     author    = {Tiong, Leslie Ching Ow and Sigmund, Dick and Chan, Chen-Hui and Teoh, Andrew Beng Jin},
     title     = {Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning},
-    booktitle = {Proceedings of IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
     year      = {2024},
     pages     = {267--276}
 }
