@@ -90,5 +90,6 @@ This work is an open-source under MIT license.
     title     = {Flexible Biometrics Recognition: Bridging the Multimodality Gap through Attention, Alignment and Prompt Tuning},
     booktitle = {Proceedings of IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
     year      = {2024},
+    pages     = {267--276}
 }
 ```
