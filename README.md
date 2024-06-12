@@ -11,10 +11,10 @@
     <sup>&dagger;</sup>Corresponding author
     <br/><br/>
     <a href="https://openaccess.thecvf.com/content/CVPR2024/html/Tiong_Flexible_Biometrics_Recognition_Bridging_the_Multimodality_Gap_through_Attention_Alignment_CVPR_2024_paper.html">
-        <img src="https://img.shields.io/badge/paper-CVPR-blue.svg" alt="Main">
+        <img src="https://img.shields.io/badge/paper-CVPR-blue.svg" alt="Main" />
     </a>
     <a href="https://www.youtube.com/watch?v=RN0qkQ3wKg8">
-        <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video">
+        <img src="https://img.shields.io/badge/video-YouTube-red.svg" alt="YouTube Video" />
     </a>
 </p>
 <br/>
