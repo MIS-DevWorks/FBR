@@ -92,8 +92,6 @@ def valid(data_loader, model, lm_loss_fn, cm_loss_fn, epoch, writer, config):
     iter_dict = {}
 
     for i, (face_input, ocu_input, target) in enumerate(tqdm(data_loader)):
-        if i == 5:
-            break
         with torch.no_grad():
             face_fea, ocu_fea, face_pred, ocu_pred = \
                 model.forward(face_input.to(config.device), ocu_input.to(config.device), 
